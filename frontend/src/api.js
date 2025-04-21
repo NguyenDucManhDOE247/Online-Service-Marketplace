@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = ""; // gateway sẽ là domain gốc hoặc gateway URL
+const BASE_URL = "http://128.199.227.154:32000";
 
 const API = {
   user: axios.create({ baseURL: `${BASE_URL}/api/users` }),
