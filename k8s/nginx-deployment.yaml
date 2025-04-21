@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: yourdockerhubname/gateway:latest
+          image: nguyenducmanh247/gateway:latest
           ports:
             - containerPort: 80
