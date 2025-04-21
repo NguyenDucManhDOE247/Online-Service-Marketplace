@@ -1,0 +1,76 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-net
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "4001:4001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/userservice
+    depends_on:
+      - mongo
+    networks:
+      - app-net
+
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    ports:
+      - "4002:4002"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/productservice
+    depends_on:
+      - mongo
+    networks:
+      - app-net
+
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    ports:
+      - "4003:4003"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/orderservice
+    depends_on:
+      - mongo
+    networks:
+      - app-net
+
+  payment-service:
+    build: ./payment-service
+    container_name: payment-service
+    ports:
+      - "4004:4004"
+    networks:
+      - app-net
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - user-service
+      - product-service
+      - order-service
+      - payment-service
+    networks:
+      - app-net
+
+volumes:
+  mongo-data:
+
+networks:
+  app-net:
+    driver: bridge
