@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const BASE_URL = ""; // gateway sẽ là domain gốc hoặc gateway URL
+
 const API = {
-  user: axios.create({ baseURL: "http://localhost:4001/api/users" }),
-  product: axios.create({ baseURL: "http://localhost:4002/api/products" }),
-  order: axios.create({ baseURL: "http://localhost:4003/api/orders" }),
-  payment: axios.create({ baseURL: "http://localhost:4004/api/payments" }),
+  user: axios.create({ baseURL: `${BASE_URL}/api/users` }),
+  product: axios.create({ baseURL: `${BASE_URL}/api/products` }),
+  order: axios.create({ baseURL: `${BASE_URL}/api/orders` }),
+  payment: axios.create({ baseURL: `${BASE_URL}/api/payments` }),
 };
 
 export default API;
