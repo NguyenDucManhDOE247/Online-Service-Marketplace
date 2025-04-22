@@ -3,8 +3,8 @@
     <h2>📜 Lịch sử đơn hàng</h2>
     <ul v-if="orders.length > 0">
       <li v-for="order in orders" :key="order._id">
-        🧾 Dịch vụ ID: {{ order.productId }} | Số lượng: {{ order.quantity }} | Tổng:
-        {{ order.totalPrice }} đ | Thời gian: {{ formatDate(order.createdAt) }}
+        🧾 <strong>{{ getProductName(order.productId) }}</strong> | Số lượng: {{ order.quantity }} |
+        Tổng: {{ order.totalPrice }} đ | Thời gian: {{ formatDate(order.createdAt) }}
       </li>
     </ul>
     <p v-else>Không có đơn hàng nào.</p>
@@ -17,11 +17,16 @@ export default {
   data() {
     return {
       orders: [],
+      products: [],
     };
   },
   methods: {
     formatDate(d) {
       return new Date(d).toLocaleString("vi-VN");
+    },
+    getProductName(id) {
+      const found = this.products.find((p) => p._id === id);
+      return found ? found.name : id;
     },
   },
   async mounted() {
@@ -29,8 +34,12 @@ export default {
     if (!email) return;
 
     try {
-      const res = await API.order.get(`/user/${email}`);
-      this.orders = res.data;
+      const [orderRes, productRes] = await Promise.all([
+        API.order.get(`/user/${email}`),
+        API.product.get("/"),
+      ]);
+      this.orders = orderRes.data;
+      this.products = productRes.data;
     } catch (err) {
       console.error("❌ Không lấy được đơn hàng:", err);
     }

@@ -2,8 +2,6 @@
   <div class="order-form">
     <h2>📝 Tạo đơn hàng</h2>
 
-    <input v-model="email" placeholder="Email người dùng" class="input" />
-
     <select v-model="selectedProductId" @change="updateSelectedProduct" class="input">
       <option disabled value="">-- Chọn dịch vụ --</option>
       <option v-for="p in products" :key="p._id" :value="p._id">
@@ -30,7 +28,6 @@ import API from "../api";
 export default {
   data() {
     return {
-      email: "",
       quantity: 1,
       selectedProductId: "",
       selectedProduct: null,
@@ -44,20 +41,18 @@ export default {
     },
   },
   methods: {
-    isEmailValid(email) {
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return regex.test(email);
-    },
     updateSelectedProduct() {
       this.selectedProduct = this.products.find((p) => p._id === this.selectedProductId);
     },
     async submitOrder() {
       this.errorMsg = "";
 
-      if (!this.email || !this.isEmailValid(this.email)) {
-        this.errorMsg = "❌ Email không hợp lệ!";
+      const email = localStorage.getItem("email");
+      if (!email) {
+        this.errorMsg = "❌ Bạn chưa đăng nhập!";
         return;
       }
+
       if (!this.selectedProduct) {
         this.errorMsg = "❌ Vui lòng chọn dịch vụ!";
         return;
@@ -69,7 +64,7 @@ export default {
 
       try {
         const orderRes = await API.order.post("/", {
-          userEmail: this.email,
+          userEmail: email,
           productId: this.selectedProductId,
           quantity: this.quantity,
           totalPrice: this.totalPrice,
@@ -83,7 +78,6 @@ export default {
         alert("✅ Thanh toán thành công!");
 
         // Reset form
-        this.email = "";
         this.selectedProductId = "";
         this.selectedProduct = null;
         this.quantity = 1;
