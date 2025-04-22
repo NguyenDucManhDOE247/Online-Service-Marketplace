@@ -1,47 +1,54 @@
 <template>
-  <div>
-    <h2>Danh sách dịch vụ</h2>
-    <ul>
-      <li v-for="p in products" :key="p._id">
-        <strong>{{ p.name }}</strong> - {{ p.price }} đ - {{ p.description }}
-        <br />
-        <code>ID dịch vụ: {{ p._id }}</code>
-      </li>
-    </ul>
+  <div class="product-list">
+    <h2>📦 Danh sách dịch vụ</h2>
+    <div v-for="p in products" :key="p._id" class="product-card">
+      <h3>
+        {{ p.name }} <span>- {{ p.price }} đ</span>
+      </h3>
+      <p>{{ p.description }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import API from "../api";
+
 export default {
   data() {
-    return {
-      products: [],
-    };
+    return { products: [] };
   },
   async mounted() {
     try {
       const res = await API.product.get("/");
       this.products = res.data;
     } catch (err) {
-      console.error("Lỗi khi lấy danh sách dịch vụ:", err);
+      console.error("❌ Không tải được danh sách dịch vụ:", err);
     }
   },
 };
 </script>
 
 <style scoped>
-ul {
-  list-style-type: circle;
-  padding-left: 1.2em;
+.product-list {
+  max-width: 800px;
+  margin: 30px auto;
 }
-li {
+.product-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  padding: 15px 20px;
+  border-radius: 10px;
   margin-bottom: 15px;
 }
-code {
-  display: inline-block;
-  margin-top: 4px;
-  color: #f39c12;
-  font-size: 0.9em;
+.product-card h3 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  color: #f1c40f;
+}
+.product-card p {
+  color: #ccc;
+  font-size: 0.95em;
 }
 </style>

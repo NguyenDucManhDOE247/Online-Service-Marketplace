@@ -33,3 +33,9 @@ exports.getOrderById = async (req, res) => {
   if (!order) return res.status(404).json({ error: "Không tìm thấy đơn hàng" });
   res.json(order);
 };
+
+exports.getOrdersByUser = async (req, res) => {
+  const email = req.params.email;
+  const orders = await Order.find({ userEmail: email });
+  res.json(orders);
+};
