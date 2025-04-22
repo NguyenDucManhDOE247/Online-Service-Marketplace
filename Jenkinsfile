@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     DOCKER_HUB_USER = 'nguyenducmanh247'
-    IMAGE_TAG = 'latest'
+    IMAGE_TAG = "latest"
     K8S_PATH = 'k8s'
   }
 
@@ -11,13 +11,15 @@ pipeline {
     stage('Build & Push Docker Images') {
       steps {
         script {
-          def services = ['user-service', 'product-service', 'order-service', 'payment-service', 'frontend', 'gateway']
-          for (svc in services) {
-            echo "🔧 Building and pushing image for: ${svc}"
-            sh """
-              docker build -t ${DOCKER_HUB_USER}/${svc}:${IMAGE_TAG} ${svc}
-              docker push ${DOCKER_HUB_USER}/${svc}:${IMAGE_TAG}
-            """
+          withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
+
+            def services = ['user-service', 'product-service', 'order-service', 'payment-service', 'frontend', 'gateway']
+            services.each { svc ->
+              echo "🔧 Building and pushing image for: ${svc}"
+              sh "docker build -t ${DOCKER_HUB_USER}/${svc}:${IMAGE_TAG} ${svc}"
+              sh "docker push ${DOCKER_HUB_USER}/${svc}:${IMAGE_TAG}"
+            }
           }
         }
       }
