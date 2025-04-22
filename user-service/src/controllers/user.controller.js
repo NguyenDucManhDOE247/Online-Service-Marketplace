@@ -25,3 +25,11 @@ exports.login = async (req, res) => {
   const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET);
   res.json({ message: "Đăng nhập thành công", token });
 };
+
+// ✅ Thêm chức năng check email
+exports.checkEmail = async (req, res) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ exists: false });
+  res.json({ exists: true });
+};

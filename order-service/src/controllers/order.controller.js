@@ -1,16 +1,13 @@
 const Order = require("../models/order.model");
-const mongoose = require("mongoose");
+const axios = require("axios");
 
 exports.createOrder = async (req, res) => {
   const { userEmail, productId, quantity, totalPrice } = req.body;
 
-  // ✅ Kiểm tra email người dùng có tồn tại không
   try {
-    const userExists = await mongoose.connection.db
-      .collection("users") // tên collection từ user-service
-      .findOne({ email: userEmail });
-
-    if (!userExists) {
+    // ✅ Gọi HTTP tới user-service để kiểm tra email
+    const check = await axios.get(`http://user-service:4001/api/users/check/${userEmail}`);
+    if (!check.data.exists) {
       return res.status(400).json({ error: "Email người dùng không tồn tại!" });
     }
 
@@ -18,8 +15,8 @@ exports.createOrder = async (req, res) => {
     await order.save();
     res.status(201).json(order);
   } catch (err) {
-    console.error("Lỗi khi tạo đơn hàng:", err);
-    res.status(500).json({ error: "Lỗi server khi tạo đơn hàng" });
+    console.error("Lỗi khi tạo đơn hàng:", err.message);
+    res.status(500).json({ error: "Lỗi server hoặc không kết nối được user-service" });
   }
 };
 
