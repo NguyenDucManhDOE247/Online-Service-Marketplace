@@ -8,12 +8,6 @@ pipeline {
   }
 
   stages {
-    stage('Clone repo') {
-      steps {
-        git 'https://github.com/NguyenDucManhDOE247/dacn.git'
-      }
-    }
-
     stage('Build & Push Docker Images') {
       steps {
         script {
