@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <h2>Tạo đơn hàng</h2>
+  <div class="order-form">
+    <h2>📝 Tạo đơn hàng</h2>
 
-    <input v-model="email" placeholder="Email người dùng" />
+    <input v-model="email" placeholder="Email người dùng" class="input" />
 
-    <select v-model="selectedProductId" @change="updateSelectedProduct">
+    <select v-model="selectedProductId" @change="updateSelectedProduct" class="input">
       <option disabled value="">-- Chọn dịch vụ --</option>
       <option v-for="p in products" :key="p._id" :value="p._id">
         {{ p.name }} ({{ p.price }} đ)
       </option>
     </select>
 
-    <input type="number" v-model.number="quantity" placeholder="Số lượng" min="1" />
+    <input type="number" v-model.number="quantity" placeholder="Số lượng" min="1" class="input" />
 
-    <p v-if="selectedProduct">
-      💡 Mô tả: {{ selectedProduct.description }} <br />
-      💸 Giá 1 dịch vụ: {{ selectedProduct.price }} đ <br />
-      🧮 Tổng giá: <strong>{{ totalPrice }} đ</strong>
-    </p>
+    <div v-if="selectedProduct" class="info">
+      💡 <strong>Mô tả:</strong> {{ selectedProduct.description }} <br />
+      💸 <strong>Giá 1 dịch vụ:</strong> {{ selectedProduct.price }} đ <br />
+      🧮 <strong>Tổng giá:</strong> <span style="color: #2ecc71">{{ totalPrice }} đ</span>
+    </div>
 
-    <button @click="submitOrder">Tạo đơn</button>
-    <p v-if="errorMsg" style="color: red">{{ errorMsg }}</p>
+    <button @click="submitOrder" class="button">Tạo đơn</button>
+    <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
   </div>
 </template>
 
@@ -105,21 +105,46 @@ export default {
 </script>
 
 <style scoped>
-select,
-input {
-  display: block;
-  margin: 10px 0;
-  padding: 5px;
-  width: 250px;
+.order-form {
+  max-width: 400px;
+  margin: 30px auto;
+  background: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
 }
-button {
-  padding: 6px 12px;
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  background: #2c2c2c;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+.button {
+  width: 100%;
+  padding: 10px;
   background: #2ecc71;
   color: white;
   border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
   cursor: pointer;
 }
-button:hover {
+.button:hover {
   background: #27ae60;
+}
+.error {
+  color: #ff4d4f;
+  margin-top: 10px;
+}
+.info {
+  background: #2c2c2c;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  line-height: 1.6;
 }
 </style>
