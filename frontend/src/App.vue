@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <h1>🛠️ Online Service Marketplace</h1>
 
     <div v-if="!isLoggedIn">
@@ -12,6 +12,7 @@
         👋 Xin chào, <strong>{{ userEmail }}</strong>
         <button @click="logout" class="logout-btn">Đăng xuất</button>
       </p>
+
       <ProductList />
       <OrderForm />
       <OrderHistory />
@@ -51,7 +52,7 @@ export default {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
-      location.reload(); // Reload lại UI
+      location.reload();
     },
   },
   mounted() {
@@ -61,6 +62,12 @@ export default {
 </script>
 
 <style scoped>
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+}
 .logout-btn {
   margin-left: 10px;
   padding: 5px 12px;
