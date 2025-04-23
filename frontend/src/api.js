@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://128.199.227.154:32000";
+const BASE_URL = "http://139.59.122.167:32000/";
 
 const API = {
   user: axios.create({ baseURL: `${BASE_URL}/api/users` }),
