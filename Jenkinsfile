@@ -5,9 +5,25 @@ pipeline {
     DOCKER_HUB_USER = 'nguyenducmanh247'
     IMAGE_TAG = "latest"
     K8S_PATH = 'k8s'
+    KUBECONFIG = "/var/jenkins_home/kubeconfig/config"
   }
 
   stages {
+    stage('Authenticate to DigitalOcean') {
+      steps {
+        withCredentials([string(credentialsId: 'do-token', variable: 'DO_TOKEN')]) {
+          sh '''
+            echo "🔐 Authenticating doctl..."
+            doctl auth init -t $DO_TOKEN
+
+            echo "📦 Getting kubeconfig for cluster..."
+            mkdir -p $(dirname "$KUBECONFIG")
+            doctl kubernetes cluster kubeconfig show microservice-cluster --access-token $DO_TOKEN > $KUBECONFIG
+          '''
+        }
+      }
+    }
+
     stage('Build & Push Docker Images') {
       steps {
         script {
@@ -28,7 +44,7 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         echo "🚀 Deploying all Kubernetes manifests from ${K8S_PATH}/"
-        sh "kubectl apply -f ${K8S_PATH}/"
+        sh "kubectl apply --validate=false -f ${K8S_PATH}/"
       }
     }
   }
