@@ -11,12 +11,12 @@ app.use(express.json());
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Kết nối MongoDB thành công"))
-  .catch((err) => console.error("Lỗi Mongo:", err));
+  .then(() => console.log("Connected to MongoDB successfully"))
+  .catch((err) => console.error("MongoDB error:", err));
 
 app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {
-  console.log(`User Service chạy ở cổng ${PORT}`);
+  console.log(`User Service is running on port ${PORT}`);
 });

@@ -9,5 +9,5 @@ app.use("/api/payments", paymentRoutes);
 
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => {
-  console.log(`Payment Service chạy ở cổng ${PORT}`);
+  console.log(`Payment Service is running on port ${PORT}`);
 });

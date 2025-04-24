@@ -1,13 +1,13 @@
 <template>
   <div class="order-container">
-    <h2>📜 Lịch sử đơn hàng</h2>
+    <h2>📜 Order History</h2>
     <ul v-if="orders.length > 0">
       <li v-for="order in orders" :key="order._id">
-        🧾 <strong>{{ getProductName(order.productId) }}</strong> | Số lượng: {{ order.quantity }} |
-        Tổng: {{ order.totalPrice }} đ | Thời gian: {{ formatDate(order.createdAt) }}
+        🧾 <strong>{{ getProductName(order.productId) }}</strong> | Quantity: {{ order.quantity }} |
+        Total: {{ order.totalPrice }} đ | Time: {{ formatDate(order.createdAt) }}
       </li>
     </ul>
-    <p v-else>Không có đơn hàng nào.</p>
+    <p v-else>No orders found.</p>
   </div>
 </template>
 
@@ -33,11 +33,11 @@ export default {
         this.orders = orderRes.data;
         this.products = productRes.data;
       } catch (err) {
-        console.error("❌ Không lấy được đơn hàng:", err);
+        console.error("❌ Failed to fetch orders:", err);
       }
     },
     formatDate(d) {
-      return new Date(d).toLocaleString("vi-VN");
+      return new Date(d).toLocaleString("en-US");
     },
     getProductName(id) {
       const found = this.products.find((p) => p._id === id);

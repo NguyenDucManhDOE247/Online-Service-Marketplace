@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h2>🔐 Đăng ký</h2>
+    <h2>🔐 Register</h2>
     <input v-model="email" placeholder="Email" class="input" />
     <input v-model="password" type="password" placeholder="Password" class="input" />
     <button @click="register" class="button">Register</button>
@@ -26,7 +26,7 @@ export default {
     async register() {
       this.error = "";
       if (!this.isEmailValid(this.email)) {
-        this.error = "❌ Email không hợp lệ!";
+        this.error = "❌ Invalid email!";
         return;
       }
       try {
@@ -34,11 +34,11 @@ export default {
           email: this.email,
           password: this.password,
         });
-        alert("✅ Đăng ký thành công!");
+        alert("✅ Registration successful!");
+        this.$router.push("/");
       } catch (err) {
-        this.error = err.response?.data?.error || "Đăng ký thất bại!";
+        this.error = err.response?.data?.error || "Registration failed!";
       }
-      this.$router.push("/");
     },
   },
 };

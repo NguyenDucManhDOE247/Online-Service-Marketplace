@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h2>🔑 Đăng nhập</h2>
+    <h2>🔑 Login</h2>
     <input v-model="email" placeholder="Email" class="input" />
     <input v-model="password" type="password" placeholder="Password" class="input" />
     <button @click="login" class="button">Login</button>
@@ -28,10 +28,10 @@ export default {
         });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("email", this.email);
-        alert("✅ Đăng nhập thành công!");
+        alert("✅ Logged in successfully!");
         this.$router.push("/dashboard");
       } catch (err) {
-        this.error = err.response?.data?.error || "Đăng nhập thất bại!";
+        this.error = err.response?.data?.error || "Login failed!";
       }
     },
   },

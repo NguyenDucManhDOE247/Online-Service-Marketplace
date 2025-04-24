@@ -1,23 +1,23 @@
 <template>
   <div class="order-form">
-    <h2>📝 Tạo đơn hàng</h2>
+    <h2>📝 Create Order</h2>
 
     <select v-model="selectedProductId" @change="updateSelectedProduct" class="input">
-      <option disabled value="">-- Chọn dịch vụ --</option>
+      <option disabled value="">-- Select Service --</option>
       <option v-for="p in products" :key="p._id" :value="p._id">
         {{ p.name }} ({{ p.price }} đ)
       </option>
     </select>
 
-    <input type="number" v-model.number="quantity" placeholder="Số lượng" min="1" class="input" />
+    <input type="number" v-model.number="quantity" placeholder="Quantity" min="1" class="input" />
 
     <div v-if="selectedProduct" class="info">
-      💡 <strong>Mô tả:</strong> {{ selectedProduct.description }} <br />
-      💸 <strong>Giá 1 dịch vụ:</strong> {{ selectedProduct.price }} đ <br />
-      🧮 <strong>Tổng giá:</strong> <span style="color: #2ecc71">{{ totalPrice }} đ</span>
+      💡 <strong>Description:</strong> {{ selectedProduct.description }} <br />
+      💸 <strong>Service Price:</strong> {{ selectedProduct.price }} đ <br />
+      🧮 <strong>Total Price:</strong> <span style="color: #2ecc71">{{ totalPrice }} đ</span>
     </div>
 
-    <button @click="submitOrder" class="button">Tạo đơn</button>
+    <button @click="submitOrder" class="button">Create Order</button>
     <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
   </div>
 </template>
@@ -49,16 +49,16 @@ export default {
 
       const email = localStorage.getItem("email");
       if (!email) {
-        this.errorMsg = "❌ Bạn chưa đăng nhập!";
+        this.errorMsg = "❌ You are not logged in!";
         return;
       }
 
       if (!this.selectedProduct) {
-        this.errorMsg = "❌ Vui lòng chọn dịch vụ!";
+        this.errorMsg = "❌ Please select a service!";
         return;
       }
       if (this.quantity < 1) {
-        this.errorMsg = "❌ Số lượng phải lớn hơn 0!";
+        this.errorMsg = "❌ Quantity must be greater than 0!";
         return;
       }
 
@@ -69,13 +69,13 @@ export default {
           quantity: this.quantity,
           totalPrice: this.totalPrice,
         });
-        alert("✅ Tạo đơn hàng thành công! Order ID: " + orderRes.data._id);
+        alert("✅ Order created successfully! Order ID: " + orderRes.data._id);
 
         await API.payment.post("/", {
           orderId: orderRes.data._id,
           amount: this.totalPrice,
         });
-        alert("✅ Thanh toán thành công!");
+        alert("✅ Payment successful!");
 
         // Reset form
         this.selectedProductId = "";
@@ -83,8 +83,8 @@ export default {
         this.quantity = 1;
         window.dispatchEvent(new Event("order-updated"));
       } catch (err) {
-        console.error("❌ Lỗi khi tạo đơn hàng:", err);
-        this.errorMsg = err.response?.data?.error || "Tạo đơn hàng thất bại!";
+        console.error("❌ Error creating order:", err);
+        this.errorMsg = err.response?.data?.error || "Order creation failed!";
       }
     },
   },
@@ -93,7 +93,7 @@ export default {
       const res = await API.product.get("/");
       this.products = res.data;
     } catch (err) {
-      console.error("❌ Lỗi khi tải danh sách dịch vụ:", err);
+      console.error("❌ Error loading service list:", err);
     }
   },
 };

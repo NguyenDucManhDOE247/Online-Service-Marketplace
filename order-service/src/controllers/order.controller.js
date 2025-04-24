@@ -7,15 +7,15 @@ exports.createOrder = async (req, res) => {
   try {
     const check = await axios.get(`http://user-service:4001/api/users/check/${userEmail}`);
     if (!check.data.exists) {
-      return res.status(400).json({ error: "Email người dùng không tồn tại!" });
+      return res.status(400).json({ error: "User email does not exist!" });
     }
 
     const order = new Order({ userEmail, productId, quantity, totalPrice });
     await order.save();
     res.status(201).json(order);
   } catch (err) {
-    console.error("Lỗi khi tạo đơn hàng:", err.message);
-    res.status(500).json({ error: "Lỗi server hoặc không kết nối được user-service" });
+    console.error("Error creating order:", err.message);
+    res.status(500).json({ error: "Server error or unable to connect to user-service" });
   }
 };
 
@@ -26,7 +26,7 @@ exports.getAllOrders = async (req, res) => {
 
 exports.getOrderById = async (req, res) => {
   const order = await Order.findById(req.params.id);
-  if (!order) return res.status(404).json({ error: "Không tìm thấy đơn hàng" });
+  if (!order) return res.status(404).json({ error: "Order not found" });
   res.json(order);
 };
 

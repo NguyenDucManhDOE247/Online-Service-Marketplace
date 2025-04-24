@@ -1,8 +1,8 @@
 <template>
   <div class="welcome">
-    <h1>🎉 Chào mừng đến với Online Service Marketplace</h1>
-    <router-link to="/register" class="btn">Đăng ký</router-link>
-    <router-link to="/login" class="btn">Đăng nhập</router-link>
+    <h1>🎉 Welcome to Online Service Marketplace</h1>
+    <router-link to="/register" class="btn">Register</router-link>
+    <router-link to="/login" class="btn">Login</router-link>
   </div>
 </template>
 

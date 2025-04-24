@@ -13,50 +13,50 @@ app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
-    console.log("✅ Kết nối MongoDB thành công");
+    console.log("✅ Connected to MongoDB successfully");
 
     const count = await Product.estimatedDocumentCount();
     if (count === 0) {
       await Product.insertMany([
         {
           name: "Web Development",
-          description: "Thiết kế và phát triển website responsive hiện đại",
+          description: "Design and develop modern responsive websites",
           price: 500,
           category: "Web",
         },
         {
           name: "Mobile App Development",
-          description: "Xây dựng ứng dụng Android và iOS native hoặc cross-platform",
+          description: "Build Android and iOS apps, either native or cross-platform",
           price: 800,
           category: "Mobile",
         },
         {
           name: "UI/UX Design",
-          description: "Thiết kế giao diện người dùng đẹp mắt, dễ sử dụng",
+          description: "Design beautiful and user-friendly interfaces",
           price: 400,
           category: "Design",
         },
         {
           name: "Backend API Development",
-          description: "Xây dựng hệ thống API chuẩn RESTful với Node.js",
+          description: "Build RESTful API systems with Node.js",
           price: 600,
           category: "Backend",
         },
         {
           name: "DevOps Setup",
-          description: "CI/CD, Docker, Kubernetes, tối ưu vận hành hệ thống",
+          description: "CI/CD, Docker, Kubernetes, optimize system operations",
           price: 700,
           category: "Infrastructure",
         },
       ]);
-      console.log("✅ Đã seed 5 dịch vụ mẫu vào MongoDB");
+      console.log("✅ Seeded 5 sample services into MongoDB");
     }
   })
-  .catch((err) => console.error("❌ Lỗi Mongo:", err));
+  .catch((err) => console.error("❌ MongoDB Error:", err));
 
 app.use("/api/products", productRoutes);
 
 const PORT = process.env.PORT || 4002;
 app.listen(PORT, () => {
-  console.log(`Product Service chạy ở cổng ${PORT}`);
+  console.log(`Product Service is running on port ${PORT}`);
 });

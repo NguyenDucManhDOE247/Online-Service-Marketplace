@@ -1,13 +1,13 @@
 exports.processPayment = (req, res) => {
   const { orderId, amount } = req.body;
 
-  // Giả lập xử lý thanh toán
+  // Simulate payment processing
   if (!orderId || !amount) {
-    return res.status(400).json({ error: "Thiếu orderId hoặc amount" });
+    return res.status(400).json({ error: "Missing orderId or amount" });
   }
 
   res.json({
-    message: "Thanh toán thành công",
+    message: "Payment successful",
     orderId,
     amount,
     status: "paid",

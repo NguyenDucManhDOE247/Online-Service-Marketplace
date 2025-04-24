@@ -1,6 +1,6 @@
 <template>
   <div class="product-list">
-    <h2>📦 Danh sách dịch vụ</h2>
+    <h2>📦 Service List</h2>
     <div v-for="p in products" :key="p._id" class="product-card">
       <h3>
         {{ p.name }} <span>- {{ p.price }} đ</span>
@@ -22,7 +22,7 @@ export default {
       const res = await API.product.get("/");
       this.products = res.data;
     } catch (err) {
-      console.error("❌ Không tải được danh sách dịch vụ:", err);
+      console.error("❌ Failed to load the service list:", err);
     }
   },
 };

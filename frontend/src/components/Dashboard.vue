@@ -1,8 +1,8 @@
 <template>
   <div class="dashboard">
     <p>
-      👋 Xin chào, <strong>{{ userEmail }}</strong>
-      <button @click="logout">Đăng xuất</button>
+      👋 Welcome, <strong>{{ userEmail }}</strong>
+      <button @click="logout">Log out</button>
     </p>
     <ProductList />
     <OrderForm />
