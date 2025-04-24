@@ -74,4 +74,3 @@ volumes:
 networks:
   app-net:
     driver: bridge
-# test
