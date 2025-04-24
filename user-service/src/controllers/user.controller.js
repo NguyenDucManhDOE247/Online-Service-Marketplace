@@ -4,13 +4,17 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const { email, password } = req.body;
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) return res.status(400).json({ error: "Email đã tồn tại" });
+
   const hashed = await bcrypt.hash(password, 10);
   try {
     const user = new User({ email, password: hashed });
     await user.save();
     res.json({ message: "Đăng ký thành công" });
   } catch (err) {
-    res.status(400).json({ error: "Email đã tồn tại" });
+    res.status(500).json({ error: "Lỗi máy chủ" });
   }
 };
 

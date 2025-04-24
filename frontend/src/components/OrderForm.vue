@@ -81,6 +81,7 @@ export default {
         this.selectedProductId = "";
         this.selectedProduct = null;
         this.quantity = 1;
+        window.dispatchEvent(new Event("order-updated"));
       } catch (err) {
         console.error("❌ Lỗi khi tạo đơn hàng:", err);
         this.errorMsg = err.response?.data?.error || "Tạo đơn hàng thất bại!";

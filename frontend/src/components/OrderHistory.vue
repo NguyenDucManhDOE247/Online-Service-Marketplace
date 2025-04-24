@@ -13,6 +13,7 @@
 
 <script>
 import API from "../api";
+
 export default {
   data() {
     return {
@@ -21,6 +22,20 @@ export default {
     };
   },
   methods: {
+    async fetchOrders() {
+      const email = localStorage.getItem("email");
+      if (!email) return;
+      try {
+        const [orderRes, productRes] = await Promise.all([
+          API.order.get(`/user/${email}`),
+          API.product.get("/"),
+        ]);
+        this.orders = orderRes.data;
+        this.products = productRes.data;
+      } catch (err) {
+        console.error("❌ Không lấy được đơn hàng:", err);
+      }
+    },
     formatDate(d) {
       return new Date(d).toLocaleString("vi-VN");
     },
@@ -29,20 +44,13 @@ export default {
       return found ? found.name : id;
     },
   },
-  async mounted() {
-    const email = localStorage.getItem("email");
-    if (!email) return;
+  mounted() {
+    this.fetchOrders();
 
-    try {
-      const [orderRes, productRes] = await Promise.all([
-        API.order.get(`/user/${email}`),
-        API.product.get("/"),
-      ]);
-      this.orders = orderRes.data;
-      this.products = productRes.data;
-    } catch (err) {
-      console.error("❌ Không lấy được đơn hàng:", err);
-    }
+    window.addEventListener("order-updated", this.fetchOrders);
+  },
+  beforeUnmount() {
+    window.removeEventListener("order-updated", this.fetchOrders);
   },
 };
 </script>
