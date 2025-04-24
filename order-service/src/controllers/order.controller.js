@@ -5,7 +5,6 @@ exports.createOrder = async (req, res) => {
   const { userEmail, productId, quantity, totalPrice } = req.body;
 
   try {
-    // ✅ Gọi HTTP tới user-service để kiểm tra email
     const check = await axios.get(`http://user-service:4001/api/users/check/${userEmail}`);
     if (!check.data.exists) {
       return res.status(400).json({ error: "Email người dùng không tồn tại!" });

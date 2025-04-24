@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const productRoutes = require("./routes/product.routes");
 const cors = require("cors");
-const Product = require("./models/product.model"); // 👈 THÊM
+const Product = require("./models/product.model");
 
 dotenv.config();
 const app = express();
@@ -15,7 +15,6 @@ mongoose
   .then(async () => {
     console.log("✅ Kết nối MongoDB thành công");
 
-    // 👇 THÊM ĐOẠN NÀY
     const count = await Product.estimatedDocumentCount();
     if (count === 0) {
       await Product.insertMany([

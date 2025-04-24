@@ -4,9 +4,8 @@ const { register, login, checkEmail } = require("../controllers/user.controller"
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/check/:email", checkEmail); // ✅ API kiểm tra email
+router.get("/check/:email", checkEmail);
 
-// (Tuỳ chọn) test route
 router.get("/", (req, res) => {
   res.json([{ id: 1, email: "demo@user.com" }]);
 });

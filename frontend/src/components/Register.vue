@@ -38,6 +38,7 @@ export default {
       } catch (err) {
         this.error = err.response?.data?.error || "Đăng ký thất bại!";
       }
+      this.$router.push("/");
     },
   },
 };

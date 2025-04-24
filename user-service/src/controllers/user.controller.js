@@ -26,7 +26,6 @@ exports.login = async (req, res) => {
   res.json({ message: "Đăng nhập thành công", token });
 };
 
-// ✅ Thêm chức năng check email
 exports.checkEmail = async (req, res) => {
   const { email } = req.params;
   const user = await User.findOne({ email });

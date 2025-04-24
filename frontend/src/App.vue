@@ -1,63 +1,10 @@
 <template>
-  <div class="app-container">
-    <h1>🛠️ Online Service Marketplace</h1>
-
-    <div v-if="!isLoggedIn">
-      <Register />
-      <Login @login-success="checkLogin" />
-    </div>
-
-    <div v-else>
-      <p>
-        👋 Xin chào, <strong>{{ userEmail }}</strong>
-        <button @click="logout" class="logout-btn">Đăng xuất</button>
-      </p>
-
-      <ProductList />
-      <OrderForm />
-      <OrderHistory />
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <script>
-import Register from "./components/Register.vue";
-import Login from "./components/Login.vue";
-import ProductList from "./components/ProductList.vue";
-import OrderForm from "./components/OrderForm.vue";
-import OrderHistory from "./components/OrderHistory.vue";
-
 export default {
-  components: {
-    Register,
-    Login,
-    ProductList,
-    OrderForm,
-    OrderHistory,
-  },
-  data() {
-    return {
-      userEmail: "",
-    };
-  },
-  computed: {
-    isLoggedIn() {
-      return !!localStorage.getItem("token");
-    },
-  },
-  methods: {
-    checkLogin() {
-      this.userEmail = localStorage.getItem("email") || "";
-    },
-    logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("email");
-      location.reload();
-    },
-  },
-  mounted() {
-    this.checkLogin();
-  },
+  name: "App",
 };
 </script>
 

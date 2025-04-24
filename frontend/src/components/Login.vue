@@ -29,7 +29,7 @@ export default {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("email", this.email);
         alert("✅ Đăng nhập thành công!");
-        this.$emit("login-success"); // thêm dòng này!
+        this.$router.push("/dashboard");
       } catch (err) {
         this.error = err.response?.data?.error || "Đăng nhập thất bại!";
       }
