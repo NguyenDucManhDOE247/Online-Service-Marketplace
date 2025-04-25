@@ -118,3 +118,4 @@ Copyright © 2025 Nguyễn Đức Mạnh
 - Use `kubectl logs` to debug any issues with pods.
 - Update the `nginx.conf` and `ingress.yaml` files as needed to match your domain or IP configuration.
 - For local testing, use `docker-compose.yaml` to spin up services.
+test
