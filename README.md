@@ -1,8 +1,8 @@
 # 🛠️ Online Service Marketplace
 
-Một hệ thống marketplace đơn giản cho phép người dùng đăng ký, đăng nhập, xem danh sách dịch vụ, đặt hàng, thanh toán, và theo dõi lịch sử đơn hàng. Dự án được triển khai theo kiến trúc Microservices với CI/CD pipeline tự động trên DigitalOcean Kubernetes bằng Jenkins.
+A simple marketplace system that allows users to register, log in, view service listings, place orders, make payments, and track order history. The project is implemented using a Microservices architecture with an automated CI/CD pipeline deployed on DigitalOcean Kubernetes via Jenkins.
 
-## 📂 Cấu trúc dự án
+## 📂 Project Structure
 
 ```
 dacn/
@@ -38,7 +38,7 @@ dacn/
 └── README.md
 ```
 
-## ⚙️ Công nghệ sử dụng
+## ⚙️ Technologies Used
 
 | Layer            | Technology                        |
 | ---------------- | --------------------------------- |
@@ -54,29 +54,29 @@ dacn/
 
 ---
 
-## 🚀 Tính năng chính
+## 🚀 Key Features
 
-- [x] Đăng ký và đăng nhập người dùng
-- [x] Danh sách dịch vụ sản phẩm
-- [x] Đặt hàng và thanh toán
-- [x] Xem lịch sử đơn hàng
-- [x] Giao diện thân thiện và responsive
-- [x] Quản lý route frontend bằng Vue Router
-- [x] CI/CD tự động build + push Docker images và deploy lên K8s
-- [x] Không cần reload khi login/đăng ký/lịch sử đơn cập nhật
-- [x] Tự động cập nhật dữ liệu sau khi đặt hàng
+- [x] User registration and login
+- [x] Product and service listings
+- [x] Order placement and payment processing
+- [x] Order history tracking
+- [x] User-friendly and responsive interface
+- [x] Frontend routing management with Vue Router
+- [x] Automated CI/CD pipeline for building, pushing Docker images, and deploying to Kubernetes
+- [x] Real-time updates without page reloads for login, registration, and order history
+- [x] Automatic data refresh after order placement
 
 ---
 
-## 📦 Triển khai hệ thống
+## 📦 Deployment Instructions
 
-### 1. Jenkins + CI/CD
+### 1. Jenkins + CI/CD Pipeline
 
-- Build Docker images cho từng service
-- Push image lên DockerHub
-- Apply toàn bộ `k8s/*.yaml` lên cluster
+- Build Docker images for each service
+- Push images to DockerHub
+- Apply all `k8s/*.yaml` files to the Kubernetes cluster
 
-### 2. Kubernetes cluster
+### 2. Kubernetes Cluster Commands
 
 ```bash
 kubectl apply -f k8s/
@@ -86,24 +86,35 @@ kubectl get svc
 
 ---
 
-## 📎 Thông tin triển khai
+## 📎 Deployment Details
 
-| Thành phần  | Thông tin                                   |
-| ----------- | ------------------------------------------- |
-| DockerHub   | `nguyenducmanh247/*`                        |
-| GitHub      | https://github.com/NguyenDucManhDOE247/dacn |
-| Gateway URL | `http://<ip>:32000/`                        |
-| Jenkins     | Chạy dưới container, mount kubeconfig       |
-| Cluster     | DigitalOcean Kubernetes                     |
+| Component   | Details                                                                 |
+| ----------- | ----------------------------------------------------------------------- |
+| DockerHub   | `nguyenducmanh247/*`                                                    |
+| GitHub Repo | [NguyenDucManhDOE247/dacn](https://github.com/NguyenDucManhDOE247/dacn) |
+| Gateway URL | `http://<ip>:32000/`                                                    |
+| Jenkins     | Runs in a container with kubeconfig mounted                             |
+| Kubernetes  | DigitalOcean Kubernetes                                                 |
 
 ---
 
-## 👤 Thành viên thực hiện
+## 👤 Contributors
 
-- Nguyễn Đức Mạnh - BCSE2022 - Vietnam Japan University
+- **Nguyễn Đức Mạnh**  
+   BCSE2022 - Vietnam Japan University
 
 ---
 
 ## 📄 License
 
-MIT License © 2025 Nguyễn Đức Mạnh
+This project is licensed under the MIT License.  
+Copyright © 2025 Nguyễn Đức Mạnh
+
+---
+
+## 📘 Additional Notes
+
+- Ensure that the Kubernetes cluster is properly configured with sufficient resources.
+- Use `kubectl logs` to debug any issues with pods.
+- Update the `nginx.conf` and `ingress.yaml` files as needed to match your domain or IP configuration.
+- For local testing, use `docker-compose.yaml` to spin up services.
