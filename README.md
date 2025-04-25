@@ -6,36 +6,16 @@ A simple marketplace system that allows users to register, log in, view service 
 
 ```
 dacn/
-├── docker-compose.yaml
-├── Jenkinsfile
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-├── gateway/
-│   ├── nginx.conf
-│   └── Dockerfile
-├── k8s/
-│   ├── deployment/
-│   ├── service/
-│   └── ingress.yaml
-├── user-service/
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-├── product-service/
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-├── order-service/
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-├── payment-service/
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-└── README.md
+├── frontend/             # User interface (Vue.js)
+├── gateway/              # API Gateway reverse proxy (Nginx)
+├── user-service/         # User microservice
+├── product-service/      # Product microservice
+├── order-service/        # Order microservice
+├── payment-service/      # Payment microservice
+├── k8s/                  # Kubernetes manifests
+├── docker-compose.yaml   # Run the entire system (local)
+├── Jenkinsfile           # Jenkins CI/CD pipeline
+├── README.md             # Project information
 ```
 
 ## ⚙️ Technologies Used
@@ -100,7 +80,7 @@ kubectl get svc
 
 ## 👤 Contributors
 
-- **Nguyễn Đức Mạnh**  
+- **Nguyen Duc Manh**  
    BCSE2022 - Vietnam Japan University
 
 ---
@@ -108,7 +88,7 @@ kubectl get svc
 ## 📄 License
 
 This project is licensed under the MIT License.  
-Copyright © 2025 Nguyễn Đức Mạnh
+Copyright © 2025 Nguyen Duc Manh
 
 ---
 
