@@ -18,7 +18,7 @@ pipeline {
 
             echo "📦 Getting kubeconfig for cluster..."
             mkdir -p $(dirname "$KUBECONFIG")
-            doctl kubernetes cluster kubeconfig show microservice-cluster --access-token $DO_TOKEN > $KUBECONFIG
+            doctl kubernetes cluster kubeconfig show dacn --access-token $DO_TOKEN > $KUBECONFIG
           '''
         }
       }
