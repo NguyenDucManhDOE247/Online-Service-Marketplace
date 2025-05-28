@@ -87,7 +87,7 @@ kubectl get svc
 
 ## 📄 License
 
-This project is licensed under the MIT License.  
+This project is licensed under the MIT License.
 Copyright © 2025 Nguyen Duc Manh
 
 ---
