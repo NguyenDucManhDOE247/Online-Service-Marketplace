@@ -91,10 +91,6 @@ This project is licensed under the MIT License.
 
 ---
 
-Developed with ❤️ by Nguyen Duc Manh
-
----
-
 ## 📘 Additional Notes
 
 - Ensure that the Kubernetes cluster is properly configured with sufficient resources.
