@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-service
+  namespace: osm
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: nguyenducmanh247/user-service:latest
+          image: nguyenducmanh247/osm-user-service:latest
           ports:
             - containerPort: 4001
           env:

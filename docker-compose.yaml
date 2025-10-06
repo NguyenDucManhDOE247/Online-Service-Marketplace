@@ -1,19 +1,16 @@
-version: "3.8"
-
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
+  mongodb:
+    image: mongo:5.0
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db
+      - mongodb-data:/data/db
     networks:
-      - app-net
+      - osm-network
+    restart: always
 
   user-service:
-    build: ./user-service
-    container_name: user-service
+    image: osm-user-service
     ports:
       - "4001:4001"
     environment:
@@ -21,10 +18,11 @@ services:
     depends_on:
       - mongo
     networks:
-      - app-net
+      - osm-network
+    restart: always
 
   product-service:
-    build: ./product-service
+    image: osm-product-service
     container_name: product-service
     ports:
       - "4002:4002"
@@ -33,10 +31,11 @@ services:
     depends_on:
       - mongo
     networks:
-      - app-net
+      - osm-network
+    restart: always
 
   order-service:
-    build: ./order-service
+    image: osm-order-service
     container_name: order-service
     ports:
       - "4003:4003"
@@ -45,18 +44,20 @@ services:
     depends_on:
       - mongo
     networks:
-      - app-net
+      - osm-network
+    restart: always
 
   payment-service:
-    build: ./payment-service
+    image: osm-payment-service
     container_name: payment-service
     ports:
       - "4004:4004"
     networks:
-      - app-net
+      - osm-network
+    restart: always
 
   frontend:
-    build: ./frontend
+    image: osm-frontend
     container_name: frontend
     ports:
       - "5173:80"
@@ -66,11 +67,12 @@ services:
       - order-service
       - payment-service
     networks:
-      - app-net
+      - osm-network
+    restart: always
+
+networks:
+  osm-network:
+    driver: bridge
 
 volumes:
   mongo-data:
-
-networks:
-  app-net:
-    driver: bridge

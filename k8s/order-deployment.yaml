@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order-service
+  namespace: osm
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: nguyenducmanh247/order-service:latest
+          image: nguyenducmanh247/osm-order-service:latest
           ports:
             - containerPort: 4003
           env:
