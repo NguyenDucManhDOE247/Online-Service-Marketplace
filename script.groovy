@@ -26,7 +26,7 @@ def deployToKubernetes() {
 def verifyDeployment() {
     echo "Verifying deployment..."
     sh "kubectl get pods -n osm"
-    sh "kubectl get services -m osm"
+    sh "kubectl get services -n osm"
 }
 
 return this
