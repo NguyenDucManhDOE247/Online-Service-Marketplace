@@ -1,6 +1,6 @@
 services:
   mongodb:
-    image: mongo:5.0
+    image: mongo:8.0-noble
     ports:
       - "27017:27017"
     volumes:
@@ -10,7 +10,7 @@ services:
     restart: always
 
   user-service:
-    image: osm-user-service
+    image: osm-user-service:latest
     ports:
       - "4001:4001"
     environment:
@@ -22,7 +22,7 @@ services:
     restart: always
 
   product-service:
-    image: osm-product-service
+    image: osm-product-service:latest
     container_name: product-service
     ports:
       - "4002:4002"
@@ -35,7 +35,7 @@ services:
     restart: always
 
   order-service:
-    image: osm-order-service
+    image: osm-order-service:latest
     container_name: order-service
     ports:
       - "4003:4003"
@@ -48,7 +48,7 @@ services:
     restart: always
 
   payment-service:
-    image: osm-payment-service
+    image: osm-payment-service:latest
     container_name: payment-service
     ports:
       - "4004:4004"
@@ -57,7 +57,7 @@ services:
     restart: always
 
   frontend:
-    image: osm-frontend
+    image: osm-frontend:latest
     container_name: frontend
     ports:
       - "5173:80"
