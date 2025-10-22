@@ -4,7 +4,7 @@ metadata:
   name: order-service
   namespace: osm
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: order-service
@@ -20,28 +20,7 @@ spec:
             - containerPort: 4003
           env:
             - name: MONGO_URI
-              value: mongodb://mongo:27017/orderservice
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 3002
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            periodSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3002
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            periodSeconds: 5
-          resources:
-            requests:
-              cpu: 100m
-              memory: 64Mi
-            limits:
-              cpu: 200m
-              memory: 128Mi            
+              value: mongodb://mongo:27017/orderservice          
 
 ---
 apiVersion: v1
