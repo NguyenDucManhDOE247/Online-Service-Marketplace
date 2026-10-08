@@ -59,3 +59,6 @@ coverage/
 # Temporary files
 tmp/
 temp/
+
+# Personal study notes (local only)
+learning/
